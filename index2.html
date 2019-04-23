@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="uk-height-1-1 home">
+    <head>
+        <title>Once (a Pearl Jam tribute)</title>
+		    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Once (a Pearl Jam tribute)</title>
+
+        <link rel="stylesheet" href="uikit.css" />
+		    <link rel="stylesheet" href="css/components/sticky.min.css" />
+		    <!--<link rel="stylesheet" href="css/components/slideshow.min.css" />-->
+
+        <link rel="stylesheet" href="custom.css" />
+
+		    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+		<!--
+        <script src="js/jquery.js"></script>
+		-->
+        <script src="js/uikit.min.js"></script>
+    		<script src="js/components/sticky.min.js"></script>
+    		<script src="js/components/slideshow.min.js"></script>
+        <script src="js/components/parallax.min.js"></script>
+		<style>
+
+
+		</style>
+
+    </head>
+
+    <body class="uk-height-1-1">
+
+      <div class="uk-vertical-align uk-height-1-1 uk-text-center">
+
+          <!-- block vertical aligned middle -->
+          <div class="uk-vertical-align-middle block-alpha uk-block-muted">
+
+            <div class="uk-vertical-align2">
+
+              <div class="uk-margin-large uk-margin-large-left uk-margin-large-right uk-vertical-align-middle2">
+
+<!-- Navbar -->
+
+                <nav class="uk-navbar uk-margin-large uk-navbar-attached" data-uk-sticky="{top:20}" accesskey>
+                    <ul class="uk-navbar-nav uk-navbar-center">
+                        <li><a href="#home" data-uk-smooth-scroll>Home</a></li>
+                        <li><a href="#agenda" data-uk-smooth-scroll>Agenda</a></li>
+                        <li><a href="#media" data-uk-smooth-scroll>Media</a></li>
+                        <li><a href="#contact" data-uk-smooth-scroll>Contact</a></li>
+                    </ul>
+                </nav>
+
+<!-- Main -->
+
+                <div id="home" class="uk-animation-fade2 uk-animation-15 section">
+                  <img src="images/logo-all.png" width="80%">
+                </div>
+
+<!-- Agenda -->
+
+                <div id="agenda" class="section">
+
+                  <h3 class="uk-text-center title">Agenda 2016</h3>
+
+                  <table class="uk-table">
+
+                    <tr>
+                      <td>saterday</td>
+                      <td>30-01-2016</td>
+                      <td>20.00 hours</td>
+                      <td width="90%">Rockfabrik - Übach-Palenberg</td>
+                    </tr>
+
+                    <tr>
+                      <td>saterday</td>
+                      <td>27-02-2016</td>
+                      <td>20.00 hours</td>
+                      <td>De Bosuil - Weert</td>
+                    </tr>
+
+                    <tr>
+                      <td>friday</td>
+                      <td>19-03-2016</td>
+                      <td>20.00 hours</td>
+                      <td>De Piek - Boxmeer</td>
+                    </tr>
+
+                    <tr>
+                      <td>friday</td>
+                      <td>**-03-2016</td>
+                      <td>20.00 hours</td>
+                      <td>Paaspop - Schijndel</td>
+                    </tr>
+
+                    <tr>
+                      <td>thursday</td>
+                      <td>05-05-2016</td>
+                      <td></td>
+                      <td>Coverland - Ulft</td>
+                      <td><a href="http://coverland.nl/">Info</a></td>
+                    </tr>
+                  </table>
+
+                  <!--
+                  <h3 class="text-center title">Agenda 2015</h3>
+                  -->
+
+                </div>
+
+<!-- Media -->
+
+                <div id="media" class="section" data-uk-scrollspy="{ repeat: true; topoffset:200px }">
+                  <h3 class="uk-text-center title">Media</h3>
+
+                  <ul class="uk-slideshow" data-uk-slideshow="{autoplay:true, animation:fade}">
+                    <li>
+                        <img src="images/mark.jpg" alt="logo">
+                    </li>
+                    <li>
+                        <img src="images/fisheye-grey-q30.jpg" alt="logo">
+                    </li>
+                    <li>
+                        <img src="images/MK5D2417-effenaar1.jpg" alt="logo">
+                    </li>
+
+                    <!--
+                    <li>
+                      <iframe src="https://www.youtube.com/embed/videoseries?list=PL1EF1FF410EEA2DC9" width="" height="" frameborder="0" allowfullscreen></iframe>
+                    </li>
+                  -->
+
+                  </ul>
+                </div>
+
+<!-- Contact -->
+                <div id="contact" class="section">
+                  <h3 class="text-center title">Contact</h3>
+                  <p>Click on the different Section links in the navbar to see the
+                    smooth scrolling effect.</p>
+                </div>
+
+                <div class="">
+                  <img src="images/stickman.gif">
+                </div>
+
+                <div class="">
+                  <img src="images/stickman.gif">
+                </div>
+
+                <!-- content -->
+
+
+              </div>
+
+            </div>
+
+          </div>
+
+          </div><!-- block -->
+
+      </div>
+
+      <script>
+      var current = '';
+      $('[data-uk-scrollspy]').on('inview.uk.scrollspy', function(e){
+          //console.log('change bg', e.target.id);
+          $('html').removeClass(current);
+          current = e.target.id;
+          $('html').addClass(e.target.id);
+
+      });
+      </script>
+    </body>
+
+</html>

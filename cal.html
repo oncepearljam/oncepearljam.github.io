@@ -1,0 +1,176 @@
+
+<!-- https://developers.google.com/google-apps/calendar/v2/reference -->
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>Once (a Pearl Jam tribute) - availability</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojox/mobile/deviceTheme.js"></script>
+    <script type="text/javascript">
+        dojoConfig = {
+            async: true,
+            parseOnLoad: false
+        };
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.10.1/dojo/dojo.js"></script>
+    <script type="text/javascript">
+        require([
+            "dojox/mobile/parser",
+            "dijit/registry",
+            "dojo/request/script",
+            
+            "dojox/mobile/ListItem",
+            "dojox/mobile/Accordion",
+            "dojox/mobile/ContentPane",
+            
+            "dojox/mobile/RoundRectList",
+            "dijit/CalendarLite",
+            
+            "dojox/mobile/compat",                        
+            "dojox/mobile/View",
+            "dojox/mobile/Heading",
+            
+            
+            "dojox/mobile/Switch",
+    
+            "dojo/domReady!"
+        ], function (parser, registry, script, ListItem, Accordion, ContentPane, RoundRectList, CalendarLite) {
+            // now parse the page for widgets
+            parser.parse();
+            
+            function daysInMonth(iMonth,iYear) {
+                return 32 - new Date(iYear, iMonth, 32).getDate();
+            }
+
+            gdata = {};
+            gdata.io = {};
+            gdata.io.handleScriptLoaded = function(r) {
+              
+              var index = {};
+              
+              r.feed.entry.forEach(function(entry) {
+                                  
+                  var startTime = new Date(entry.gd$when[0].startTime);
+                  var endTime = new Date(entry.gd$when[0].endTime);
+                  
+                  var startDay = new Date(startTime);
+                  startDay.setHours(0);
+                  startDay.setMinutes(0);
+                  startDay.setSeconds(0);
+                  
+                  var endDay = new Date(endTime);
+                  endDay.setHours(0);
+                  endDay.setMinutes(0);
+                  endDay.setSeconds(0);                  
+                  
+                  var tempDate = new Date(startDay);               
+                  while(tempDate <= endDay) {
+                    index[tempDate] = entry;
+                    tempDate.setDate(tempDate.getDate() + 1);
+                  }
+                  
+                  console.log(entry.title, startTime, endTime, startDay);                     
+                                     		
+              });
+              
+              //var list1 = registry.byId("mylist");
+              var mainView = registry.byId("mainView");
+              
+              var years = [2014, 2015, 2016];
+              var months = ["Januari", "Februari", "Maart", "April", "Mei",
+                "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
+                
+              var dayNames = ["zo", "ma", "di", "wo", "do", "vr", "za"];
+              
+              years.forEach(function(y) {
+                months.forEach(function(m, monthIndex) {
+                    
+                    var loopMonth = new Date(y, monthIndex + 1, 0);
+                    if (loopMonth < new Date()) {
+                      return;
+                    }
+                    
+                    var cp = new ContentPane({ label : m + " " + y }).placeAt(mainView);
+                    cp.startup();
+                    var list1 = new RoundRectList().placeAt(cp);
+                    list1.startup();
+                    
+                    /*
+                    var item1 = new ListItem({
+                      label: m + " " + y,
+                      style: "background-color:blue"
+                    });
+                    item1.placeAt(list1);
+                    item1.startup();
+                    */
+                        
+                    var days = daysInMonth(monthIndex, y);
+                  
+                    for(i = 1; i <= days; i++) {
+                      
+                      var color="white";                      
+
+                      var loopDate = new Date(y, monthIndex, i);
+                      if (loopDate > new Date()) {                             
+        
+                        if (index[loopDate]) {
+                          var entry = index[loopDate];                                                
+                          color = "red";
+
+                          //console.log(entry);			
+                          if (entry.title.$t.indexOf("Optreden") > -1) {
+                              color="lightBlue";
+                          };
+                          if (entry.title.$t.indexOf("Repetitie") > -1) {
+                              color="orange";
+                          }; 
+
+                          var item1 = new ListItem({
+                            label: dayNames[loopDate.getDay()] + " " + i + "-" + (monthIndex + 1) + "-" + y + " : " + entry.title.$t,
+                            style: "font-size:12px;background-color:" + color
+                          });
+                          item1.placeAt(list1.containerNode);
+                          item1.startup();
+                          
+                        } else if ([0,5,6].indexOf(loopDate.getDay()) != -1) {                       
+
+                          var item1 = new ListItem({
+                            label: dayNames[loopDate.getDay()] + " " + i + "-" + (monthIndex + 1) + "-" + y,
+                            style: "font-size:12px;background-color:green"
+                          });
+                          item1.placeAt(list1.containerNode);
+                          item1.startup();                        
+                        }
+                        
+                      }
+                    
+                    }
+                });              
+              });                            
+            }
+            
+		    var url = "https://www.google.com/calendar/feeds/oncepj%40gmail.com/private-b491e8bb4d0f827a4c55145d7499cfcf/composite?alt=json-in-script&" +
+              "sortorder=a&futureevents2=false&singleevents=false&start-min=" + new Date().toISOString() + "&recurrence-expansion-end=" + new Date(2017, 1, 1).toISOString() + 
+              "&start-max=" + new Date(2015, 12, 31).toISOString();
+            script.get(url, {         
+              jsonp: "gdata.io.handleScriptLoaded"
+            });
+
+        });
+    </script>
+</head>
+<body style="visibility:hidden">
+
+  <div id="settings" data-dojo-type="dojox/mobile/View" data-dojo-props="selected:true">
+    <h1 data-dojo-type="dojox/mobile/Heading">Once - availability</h1>    
+           
+
+
+           
+    <div data-dojo-type="dojox/mobile/Accordion" id="mainView">
+    </div>  
+  </div>
+
+</body>
+</html>
