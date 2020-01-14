@@ -24,19 +24,19 @@ client.getEntries({
 
     // date
     let date = new Date(item.fields.date);
-
+    
     // date.day
     let day = date.getDay();
     let dayString = days[day];
 
     // date.date
     let dateString = `${fn(date.getDate())}-${fn(date.getMonth() + 1)}-${date.getFullYear()}`;
-    let timeString = `${fn(date.getHours())}.${fn(date.getSeconds())}`;
+    let timeString = item.fields.time ? `${item.fields.time} hours` : "XX:00 hours";
 
     tr.innerHTML = `
       <td>${days[day]}</td>
       <td>${dateString}</td>
-      <td>${timeString}hours</td>
+      <td>${timeString}</td>
       <td>${item.fields["city"]}</td>
       <td>${item.fields["description"]}</td>
       <td><a target="_new" href=\"${item.fields["link"]}\">INFO</a></td>

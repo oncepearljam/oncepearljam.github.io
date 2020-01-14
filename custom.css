@@ -16,9 +16,6 @@ html {
   src: url('fonts/PJ ten.ttf');
 }
 
-body {
-}
-
 * {
   font-family: ten !important;
   font-size: xx-large !important;
@@ -121,7 +118,7 @@ html.media {
 }
 
 .uk-navbar-nav > li > a {
-  white;
+  color: white;
 }
 
 .uk-navbar-nav > li:hover > a,
@@ -157,9 +154,9 @@ html.media {
     height: 100%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 479px) {
   * {
-    font-size: x-large !important;
+    font-size: medium !important;
   }
 
   html.home {
@@ -190,8 +187,10 @@ html.media {
 
   .my-table {
     width: 100%;
+    font-size: xx-small !important;
   }
 
+  /*
   .my-table tr {
     display: flex;
     flex-direction: row;
@@ -210,6 +209,7 @@ html.media {
     width: auto;
     padding: 5px;
   }
+  */
 
   .logo {
     width: 80%;
