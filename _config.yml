@@ -1,0 +1,5 @@
+exclude:
+  - Gemfile
+  - Gemfile.lock
+include:
+  - node_modules/contentful
