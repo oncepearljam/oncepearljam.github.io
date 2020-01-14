@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "contentful": "^7.11.3"
+  },
+  "scripts": {
+    "serve": "bundle exec jekyll serve --incremental"
+  }
+}
