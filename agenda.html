@@ -1,5 +1,59 @@
+<script>
+
+const days = "monday,tuesday,wednesday,thursday,friday,saterday,sunday".split(",");
+
+function fn(number) {
+  let _n = Number(number);
+  return _n < 10 ? `0${_n}` : _n;
+};
+
+const client = contentful.createClient({
+  space: "5n1xse1s8kib",
+  accessToken: "QzoMbQ_gwJFVJ7sX8kEPR5u9urN31v30p9mVUE6ZdMo"
+});
+client.getEntries({
+  order: 'fields.date',
+  content_type: "event"
+})
+.then((response) => {
+  let items = response.items;
+  items.forEach(item => {
+    let tr = document.createElement("tr");
+    let table = document.querySelector("#table_2020");
+    table.appendChild(tr);
+
+    // date
+    let date = new Date(item.fields.date);
+
+    // date.day
+    let day = date.getDay();
+    let dayString = days[day];
+
+    // date.date
+    let dateString = `${fn(date.getDate())}-${fn(date.getMonth() + 1)}-${date.getFullYear()}`;
+    let timeString = `${fn(date.getHours())}.${fn(date.getSeconds())}`;
+
+    tr.innerHTML = `
+      <td>${days[day]}</td>
+      <td>${dateString}</td>
+      <td>${timeString}hours</td>
+      <td>${item.fields["city"]}</td>
+      <td>${item.fields["description"]}</td>
+      <td><a target="_new" href=\"${item.fields["link"]}\">INFO</a></td>
+    `;
+    return;
+  });
+})
+.catch(console.error)
+</script>
+
 <div id="agenda" class="section">
 
+  <h3 class="uk-text-center title">- 2020 -</h3>
+
+  <table class="my-table" id="table_2020">
+  </table>
+      
   <h3 class="uk-text-center title">- 2019 -</h3>
 
   <table class="my-table">
@@ -103,8 +157,6 @@
     </tr>
 
   </table>
-
-  <h3 class="uk-text-center title">- 2019 - Past -</h3>
 
   <table class="my-table">
 
