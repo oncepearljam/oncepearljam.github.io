@@ -27,7 +27,7 @@ client.getEntries({
       let date = new Date(item.fields.date);
       
       // date.day
-      let day = date.getDay();
+      let day = date.getDay() - 1;
       let dayString = days[day];
       let year = date.getFullYear();
       if (year === aYear) {
